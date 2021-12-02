@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		97B011DD275537DB00199834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011DC275537DB00199834 /* AppDelegate.swift */; };
 		97B011DF275537DB00199834 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011DE275537DB00199834 /* SceneDelegate.swift */; };
-		97B011E1275537DB00199834 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011E0275537DB00199834 /* ViewController.swift */; };
 		97B011E4275537DB00199834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B011E2275537DB00199834 /* Main.storyboard */; };
 		97B011E7275537DB00199834 /* Birthdays.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97B011E5275537DB00199834 /* Birthdays.xcdatamodeld */; };
 		97B011E9275537DC00199834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B011E8275537DC00199834 /* Assets.xcassets */; };
 		97B011EC275537DC00199834 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B011EA275537DC00199834 /* LaunchScreen.storyboard */; };
+		97B011F42755385C00199834 /* BirthdaysTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011F32755385C00199834 /* BirthdaysTableViewController.swift */; };
+		97B011F62755389B00199834 /* PersonWithBirthday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011F52755389B00199834 /* PersonWithBirthday.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		97B011D9275537DB00199834 /* Birthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97B011DC275537DB00199834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97B011DE275537DB00199834 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		97B011E0275537DB00199834 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		97B011E3275537DB00199834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97B011E6275537DB00199834 /* Birthdays.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Birthdays.xcdatamodel; sourceTree = "<group>"; };
 		97B011E8275537DC00199834 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97B011EB275537DC00199834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97B011ED275537DC00199834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97B011F32755385C00199834 /* BirthdaysTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdaysTableViewController.swift; sourceTree = "<group>"; };
+		97B011F52755389B00199834 /* PersonWithBirthday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonWithBirthday.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +62,9 @@
 			children = (
 				97B011DC275537DB00199834 /* AppDelegate.swift */,
 				97B011DE275537DB00199834 /* SceneDelegate.swift */,
-				97B011E0275537DB00199834 /* ViewController.swift */,
 				97B011E2275537DB00199834 /* Main.storyboard */,
+				97B011F32755385C00199834 /* BirthdaysTableViewController.swift */,
+				97B011F52755389B00199834 /* PersonWithBirthday.swift */,
 				97B011E8275537DC00199834 /* Assets.xcassets */,
 				97B011EA275537DC00199834 /* LaunchScreen.storyboard */,
 				97B011ED275537DC00199834 /* Info.plist */,
@@ -142,8 +145,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				97B011E7275537DB00199834 /* Birthdays.xcdatamodeld in Sources */,
-				97B011E1275537DB00199834 /* ViewController.swift in Sources */,
 				97B011DD275537DB00199834 /* AppDelegate.swift in Sources */,
+				97B011F62755389B00199834 /* PersonWithBirthday.swift in Sources */,
+				97B011F42755385C00199834 /* BirthdaysTableViewController.swift in Sources */,
 				97B011DF275537DB00199834 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +305,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -329,6 +334,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
