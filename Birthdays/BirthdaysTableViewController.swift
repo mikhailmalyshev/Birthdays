@@ -10,15 +10,9 @@ import UIKit
 class BirthdaysTableViewController: UITableViewController {
     
     var persons: [Person] = [
-        Person(name: "Misha",
-               surname: "Malyshev",
-               birthday: Date(timeIntervalSinceReferenceDate: 11131331)),
-        Person(name: "Sasha",
-               surname: "Krasnov",
-               birthday: Date(timeIntervalSinceReferenceDate: 1413144))]
-    var choices = ["Toyota","Honda","Chevy","Audi","BMW"]
-    var pickerView = UIPickerView()
-    var typeValue = String()
+        Person(name: "Misha", surname: "Malyshev", date: DateComponents(year: 1994, month: 9, day: 9)),
+        Person(name: "Sasha", surname: "Krasnov", date: DateComponents(year: 1995, month: 9, day: 6))
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +33,7 @@ class BirthdaysTableViewController: UITableViewController {
         var content = cell.defaultContentConfiguration()
         
         content.text = "\(persons[indexPath.row].name) \(persons[indexPath.row].surname)"
+        content.secondaryText = "\(persons[indexPath.row].burthDayDescription())"
         
         cell.contentConfiguration = content
         return cell
@@ -108,7 +103,6 @@ extension BirthdaysTableViewController {
         
         let alert = UIAlertController(title: title, message: "Кого добавляем?", preferredStyle: .alert)
         
-//        alert.view.addSubview(myDatePicker)
         alert.addTextField { (textField) -> Void in
             textField.text = "Имя"
             textField.isUserInteractionEnabled = false
@@ -161,7 +155,7 @@ extension BirthdaysTableViewController {
             let surname = alert.textFields![3].text
             if name != "" && surname != "" {
                 saveAction.isEnabled = true
-                self.persons.append(Person(name: "\(myDatePicker.date)", surname: surname!, birthday: Date(timeIntervalSinceReferenceDate: 1413144)))
+                self.persons.append(Person(name: name!, surname: surname!, date: myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)))
             }
             self.tableView.reloadData()
         }
@@ -176,31 +170,3 @@ extension BirthdaysTableViewController {
     
 }
 
-//extension BirthdaysTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-//
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return choices.count
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return choices[row]
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        if row == 0 {
-//            typeValue = "Toyota"
-//        } else if row == 1 {
-//            typeValue = "Honda"
-//        } else if row == 2 {
-//            typeValue = "Chevy"
-//        } else if row == 3 {
-//            typeValue = "Audi"
-//        } else if row == 4 {
-//            typeValue = "BMW"
-//        }
-//    }
-//}

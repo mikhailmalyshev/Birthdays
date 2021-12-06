@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Друзья и недрузья-->
         <scene sceneID="fBe-Cg-AhJ">
             <objects>
                 <tableViewController id="FwF-tp-SHN" customClass="BirthdaysTableViewController" customModule="Birthdays" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,7 +39,7 @@
                             <outlet property="delegate" destination="FwF-tp-SHN" id="eOc-cG-11H"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="cUi-nb-1i6"/>
+                    <navigationItem key="navigationItem" title="Друзья и недрузья" id="cUi-nb-1i6"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgW-BP-N8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
