@@ -7,22 +7,21 @@
 
 import Foundation
 
-class Person {
+class Friend: Codable {
     let name: String
     let surname: String
-    var age: Int?
-    var birthdate: DateComponents {
-        didSet(date){
-            let calendar = Calendar.current
-            let now = calendar.dateComponents([.year, .month, .day], from: Date())
-            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
-            age = ageComponents.year!
-        }
-    }
-    init(name: String, surname: String, date: DateComponents) {
+    let birthdate: DateComponents
+//        didSet(date){
+//            let calendar = Calendar.current
+//            let now = calendar.dateComponents([.year, .month, .day], from: Date())
+//            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
+//            age = ageComponents.year!
+//        }
+//    }
+    init(name: String, surname: String, birthdate: DateComponents) {
         self.name = name
         self.surname = surname
-        birthdate = date
+        self.birthdate = birthdate
     }
     
     func burthDayDescription() -> String {
@@ -31,6 +30,12 @@ class Person {
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         
-        return formatter.string(from: date)
+        var age: Int
+        let calendar = Calendar.current
+        let now = calendar.dateComponents([.year, .month, .day], from: Date())
+        let ageComponents = calendar.dateComponents([.year], from: birthdate, to: now)
+        age = ageComponents.year!
+
+        return "\((formatter.string(from: date))), \(age) years"
     }
 }

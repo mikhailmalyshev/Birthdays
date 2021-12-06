@@ -9,13 +9,14 @@ import UIKit
 
 class BirthdaysTableViewController: UITableViewController {
     
-    var persons: [Person] = [
-        Person(name: "Misha", surname: "Malyshev", date: DateComponents(year: 1994, month: 9, day: 9)),
-        Person(name: "Sasha", surname: "Krasnov", date: DateComponents(year: 1995, month: 9, day: 6))
-    ]
+    private var friends: [Friend] = []
+//        Friend(name: "Misha", surname: "Malyshev", birthdate: DateComponents(year: 1994, month: 9, day: 9)),
+//        Friend(name: "Sasha", surname: "Krasnov", birthdate: DateComponents(year: 1995, month: 9, day: 6))
+//    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        friends = StorageManager.shared.fetchFriends()
     }
 
     // MARK: - Table view data source
@@ -25,15 +26,15 @@ class BirthdaysTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return persons.count
+        return friends.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         
-        content.text = "\(persons[indexPath.row].name) \(persons[indexPath.row].surname)"
-        content.secondaryText = "\(persons[indexPath.row].burthDayDescription())"
+        content.text = "\(friends[indexPath.row].name) \(friends[indexPath.row].surname)"
+        content.secondaryText = "\(friends[indexPath.row].burthDayDescription())"
         
         cell.contentConfiguration = content
         return cell
@@ -126,7 +127,7 @@ extension BirthdaysTableViewController {
         }
         
         alert.addTextField { textField in
-            textField.text = "Выбери дату ниже"
+            textField.text = "Тапни сюда"
             textField.inputView = myDatePicker
         }
         
@@ -155,7 +156,8 @@ extension BirthdaysTableViewController {
             let surname = alert.textFields![3].text
             if name != "" && surname != "" {
                 saveAction.isEnabled = true
-                self.persons.append(Person(name: name!, surname: surname!, date: myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)))
+             self.friends.append(Friend(name: name!, surname: surname!, birthdate: myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)))
+                StorageManager.shared.saveFriends(with: self.friends.last!)
             }
             self.tableView.reloadData()
         }
