@@ -11,13 +11,8 @@ class Friend: Codable {
     let name: String
     let surname: String
     let birthdate: DateComponents
-//        didSet(date){
-//            let calendar = Calendar.current
-//            let now = calendar.dateComponents([.year, .month, .day], from: Date())
-//            let ageComponents = calendar.dateComponents([.year], from: date, to: now)
-//            age = ageComponents.year!
-//        }
-//    }
+    var daysBeforeBirthday = 0
+    
     init(name: String, surname: String, birthdate: DateComponents) {
         self.name = name
         self.surname = surname

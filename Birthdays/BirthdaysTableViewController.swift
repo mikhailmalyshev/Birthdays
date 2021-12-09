@@ -10,9 +10,8 @@ import UIKit
 class BirthdaysTableViewController: UITableViewController {
     
     private var friends: [Friend] = []
-//        Friend(name: "Misha", surname: "Malyshev", birthdate: DateComponents(year: 1994, month: 9, day: 9)),
-//        Friend(name: "Sasha", surname: "Krasnov", birthdate: DateComponents(year: 1995, month: 9, day: 6))
-//    ]
+    let now = Date()
+    let calendar = Calendar.current
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +29,7 @@ class BirthdaysTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        sortFriendsByBirthday()
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         
@@ -89,6 +89,15 @@ class BirthdaysTableViewController: UITableViewController {
         showAlert()
     }
     
+    func sortFriendsByBirthday() {
+        for birthday in friends {
+            let birthdate = calendar.date(from: birthday.birthdate)!
+            let components = calendar.dateComponents([.day, .month], from: birthdate)
+            let nextDate = calendar.nextDate(after: now, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
+            birthday.daysBeforeBirthday = calendar.dateComponents([.day], from: now, to: nextDate ?? now).day ?? 0
+        }
+        friends = friends.sorted(by: { $0.daysBeforeBirthday < $1.daysBeforeBirthday })
+    }
     
 }
 
@@ -171,4 +180,3 @@ extension BirthdaysTableViewController {
     }
     
 }
-
