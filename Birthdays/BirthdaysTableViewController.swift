@@ -168,7 +168,10 @@ extension BirthdaysTableViewController {
              self.friends.append(Friend(name: name!, surname: surname!, birthdate: myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)))
                 StorageManager.shared.saveFriends(with: self.friends.last!)
             }
-            self.tableView.reloadData()
+            UIView.transition(with: self.tableView,
+                              duration: 1,
+                              options: .transitionCrossDissolve,
+                              animations: { self.tableView.reloadData() })
         }
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .destructive)
