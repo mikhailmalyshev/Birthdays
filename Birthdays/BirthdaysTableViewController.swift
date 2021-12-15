@@ -10,8 +10,8 @@ import UIKit
 class BirthdaysTableViewController: UITableViewController {
     
     private var friends: [Friend] = []
-    let now = Date()
-    let calendar = Calendar.current
+    private let now = Date()
+    private let calendar = Calendar.current
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +39,24 @@ class BirthdaysTableViewController: UITableViewController {
         cell.contentConfiguration = content
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            self.friends.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            StorageManager.shared.deleteContact(at: indexPath.row)
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
+    
     @IBAction func addPerson() {
         showAlert()
     }
     
-    func sortFriendsByBirthday() {
+    private func sortFriendsByBirthday() {
         for birthday in friends {
             let birthdate = calendar.date(from: birthday.birthdate)!
             let components = calendar.dateComponents([.day, .month], from: birthdate)
@@ -60,7 +72,7 @@ extension BirthdaysTableViewController {
     
     private func showAlert() {
         let title = "Добавить ДР друга"
-        let myDatePicker: UIDatePicker = UIDatePicker()
+        let myDatePicker = UIDatePicker()
         myDatePicker.timeZone = .current
         myDatePicker.preferredDatePickerStyle = .wheels
         myDatePicker.datePickerMode = .date
@@ -116,12 +128,15 @@ extension BirthdaysTableViewController {
         }
         
         let saveAction = UIAlertAction(title: "Добавить", style: .default) { (saveAction) in
-            let name = alert.textFields![1].text
-            let surname = alert.textFields![3].text
+            guard let name = alert.textFields![1].text else { return }
+            guard let surname = alert.textFields![3].text else { return }
             if name != "" && surname != "" {
                 saveAction.isEnabled = true
-             self.friends.append(Friend(name: name!, surname: surname!, birthdate: myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)))
-                StorageManager.shared.saveFriends(with: self.friends.last!)
+                let birthDate = myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)
+                self.friends.append(Friend(name: name, surname: surname, birthdate: birthDate))
+                StorageManager.shared.saveFriends(with: self.friends.last ?? Friend(name: "Имя",
+                                                                                    surname: "Некорректно",
+                                                                                    birthdate: DateComponents(year: 0, month: 0, day: 0)))
             }
             UIView.transition(with: self.tableView,
                               duration: 1,

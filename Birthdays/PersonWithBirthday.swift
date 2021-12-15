@@ -20,17 +20,19 @@ class Friend: Codable {
     }
     
     func burthDayDescription() -> String {
-        let date = Calendar.current.date(from: birthdate)!
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        
-        var age: Int
-        let calendar = Calendar.current
-        let now = calendar.dateComponents([.year, .month, .day], from: Date())
-        let ageComponents = calendar.dateComponents([.year], from: birthdate, to: now)
-        age = ageComponents.year!
-
-        return "\((formatter.string(from: date))), \(age) years"
+        if let date = Calendar.current.date(from: birthdate) {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .long
+            formatter.timeStyle = .none
+            
+            var age: Int
+            let calendar = Calendar.current
+            let now = calendar.dateComponents([.year, .month, .day], from: Date())
+            let ageComponents = calendar.dateComponents([.year], from: birthdate, to: now)
+            age = ageComponents.year!
+            
+            return "\((formatter.string(from: date))), \(age) years"
+        }
+        return "Ошибка"
     }
 }

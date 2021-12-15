@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 import UserNotifications
 
 @main
@@ -28,24 +27,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func sendNotification() {
-//        let date = Date(timeIntervalSinceNow: 10)
-        var firstDate = DateComponents(month: 12, day: 12)
-
-        firstDate.hour = 23
-        firstDate.minute = 26
+    private func sendNotification() {
+        let friends = StorageManager.shared.fetchFriends()
         
-        let content = UNMutableNotificationContent()
-        content.title = "Put your title Here (birthday)"
-        content.body = "notification"
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: firstDate, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: "Notificaion", content: content, trigger: trigger)
-        
-        notificatiocCenter.add(request) { error in
-            print(error?.localizedDescription)
+        for friend in friends {
+            var notificationDate = DateComponents(month: friend.birthdate.month,
+                                                  day: friend.birthdate.day)
+            notificationDate.hour = 9
+            notificationDate.minute = 0
+            let content = UNMutableNotificationContent()
+            content.title = "Hey! Don't forget!"
+            content.body = "Today is \(friend.burthDayDescription())'s birthday!"
+            content.sound = UNNotificationSound.default
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
+            
+            let request = UNNotificationRequest(identifier: "Notificaion", content: content, trigger: trigger)
+            
+            notificatiocCenter.add(request) { error in
+                print(error?.localizedDescription ?? "error")
+            }
         }
     }
 
@@ -57,33 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
-
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Birthdays")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
