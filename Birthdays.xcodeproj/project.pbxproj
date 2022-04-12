@@ -8,17 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		9735FC43275E9D2D006CF2BD /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9735FC42275E9D2D006CF2BD /* StorageManager.swift */; };
+		97816C252806202600CF0E2F /* BirthdaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97816C242806202600CF0E2F /* BirthdaysViewModel.swift */; };
+		97816C272806205800CF0E2F /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97816C262806205800CF0E2F /* FriendTableViewCell.swift */; };
+		97816C292806207300CF0E2F /* FriendTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97816C282806207300CF0E2F /* FriendTableViewCellViewModel.swift */; };
 		97B011DD275537DB00199834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011DC275537DB00199834 /* AppDelegate.swift */; };
 		97B011DF275537DB00199834 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011DE275537DB00199834 /* SceneDelegate.swift */; };
 		97B011E4275537DB00199834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B011E2275537DB00199834 /* Main.storyboard */; };
 		97B011E9275537DC00199834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97B011E8275537DC00199834 /* Assets.xcassets */; };
 		97B011EC275537DC00199834 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97B011EA275537DC00199834 /* LaunchScreen.storyboard */; };
 		97B011F42755385C00199834 /* BirthdaysTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011F32755385C00199834 /* BirthdaysTableViewController.swift */; };
-		97B011F62755389B00199834 /* PersonWithBirthday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011F52755389B00199834 /* PersonWithBirthday.swift */; };
+		97B011F62755389B00199834 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B011F52755389B00199834 /* Friend.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9735FC42275E9D2D006CF2BD /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		97816C242806202600CF0E2F /* BirthdaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdaysViewModel.swift; sourceTree = "<group>"; };
+		97816C262806205800CF0E2F /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		97816C282806207300CF0E2F /* FriendTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		97B011D9275537DB00199834 /* Birthdays.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Birthdays.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97B011DC275537DB00199834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97B011DE275537DB00199834 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,7 +33,7 @@
 		97B011EB275537DC00199834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97B011ED275537DC00199834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97B011F32755385C00199834 /* BirthdaysTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdaysTableViewController.swift; sourceTree = "<group>"; };
-		97B011F52755389B00199834 /* PersonWithBirthday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonWithBirthday.swift; sourceTree = "<group>"; };
+		97B011F52755389B00199834 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		97816C2328061FE400CF0E2F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				97B011E2275537DB00199834 /* Main.storyboard */,
+				97B011EA275537DC00199834 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		97816C2A280620E100CF0E2F /* BirthdayView */ = {
+			isa = PBXGroup;
+			children = (
+				97B011F32755385C00199834 /* BirthdaysTableViewController.swift */,
+				97816C242806202600CF0E2F /* BirthdaysViewModel.swift */,
+			);
+			path = BirthdayView;
+			sourceTree = "<group>";
+		};
+		97816C2B280620F500CF0E2F /* FriendCell */ = {
+			isa = PBXGroup;
+			children = (
+				97816C262806205800CF0E2F /* FriendTableViewCell.swift */,
+				97816C282806207300CF0E2F /* FriendTableViewCellViewModel.swift */,
+			);
+			path = FriendCell;
+			sourceTree = "<group>";
+		};
+		97816C2C2806210100CF0E2F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				97816C2A280620E100CF0E2F /* BirthdayView */,
+				97816C2B280620F500CF0E2F /* FriendCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		97816C2D2806210C00CF0E2F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				97B011F52755389B00199834 /* Friend.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		97816C2E2806211500CF0E2F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9735FC42275E9D2D006CF2BD /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		97816C2F2806212000CF0E2F /* App Methods */ = {
+			isa = PBXGroup;
+			children = (
+				97B011DC275537DB00199834 /* AppDelegate.swift */,
+				97B011DE275537DB00199834 /* SceneDelegate.swift */,
+			);
+			path = "App Methods";
+			sourceTree = "<group>";
+		};
 		97B011D0275537DB00199834 = {
 			isa = PBXGroup;
 			children = (
@@ -60,14 +127,12 @@
 		97B011DB275537DB00199834 /* Birthdays */ = {
 			isa = PBXGroup;
 			children = (
-				97B011DC275537DB00199834 /* AppDelegate.swift */,
-				97B011DE275537DB00199834 /* SceneDelegate.swift */,
-				97B011E2275537DB00199834 /* Main.storyboard */,
-				97B011F32755385C00199834 /* BirthdaysTableViewController.swift */,
-				97B011F52755389B00199834 /* PersonWithBirthday.swift */,
-				9735FC42275E9D2D006CF2BD /* StorageManager.swift */,
+				97816C2F2806212000CF0E2F /* App Methods */,
+				97816C2328061FE400CF0E2F /* Storyboards */,
+				97816C2C2806210100CF0E2F /* Views */,
+				97816C2D2806210C00CF0E2F /* Model */,
+				97816C2E2806211500CF0E2F /* Services */,
 				97B011E8275537DC00199834 /* Assets.xcassets */,
-				97B011EA275537DC00199834 /* LaunchScreen.storyboard */,
 				97B011ED275537DC00199834 /* Info.plist */,
 			);
 			path = Birthdays;
@@ -145,10 +210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				97B011DD275537DB00199834 /* AppDelegate.swift in Sources */,
-				97B011F62755389B00199834 /* PersonWithBirthday.swift in Sources */,
+				97B011F62755389B00199834 /* Friend.swift in Sources */,
 				9735FC43275E9D2D006CF2BD /* StorageManager.swift in Sources */,
 				97B011F42755385C00199834 /* BirthdaysTableViewController.swift in Sources */,
+				97816C292806207300CF0E2F /* FriendTableViewCellViewModel.swift in Sources */,
 				97B011DF275537DB00199834 /* SceneDelegate.swift in Sources */,
+				97816C252806202600CF0E2F /* BirthdaysViewModel.swift in Sources */,
+				97816C272806205800CF0E2F /* FriendTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

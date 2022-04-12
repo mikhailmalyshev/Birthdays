@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let notificatiocCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // Запрос на уведомления
+        
         notificatiocCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granded, error in
             
             guard granded else { return }
@@ -27,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    // Make notification at 9:00
+    
     private func sendNotification() {
         let friends = StorageManager.shared.fetchFriends()
         
@@ -37,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notificationDate.minute = 0
             let content = UNMutableNotificationContent()
             content.title = "Hey! Don't forget!"
-            content.body = "Today is \(friend.burthDayDescription())'s birthday!"
+            content.body = "Today is \(friend.name)'s birthday!"
             content.sound = UNNotificationSound.default
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDate, repeats: true)
@@ -50,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    // MARK: UISceneSession Lifecycle
+// MARK: - UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
@@ -59,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
 }
+
+// MARK: -  UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

@@ -7,44 +7,47 @@
 
 import UIKit
 
+// MARK: - BirthdaysTableViewController
+
 class BirthdaysTableViewController: UITableViewController {
     
-    private var friends: [Friend] = []
-    private let now = Date()
-    private let calendar = Calendar.current
-
+    // ViewModel
+    
+    private var viewModel: BirthdaysViewModelProtocol! {
+        didSet {
+            viewModel.fetchFriends {
+                self.viewModel.sortByBirthDay()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // Методы жизненного цикла VC
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        friends = StorageManager.shared.fetchFriends()
+        viewModel = BirthdaysViewModel()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
+    
+    // Table view data source
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return viewModel.friendsCount
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        sortFriendsByBirthday()
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        var content = cell.defaultContentConfiguration()
-        
-        content.text = "\(friends[indexPath.row].name) \(friends[indexPath.row].surname)"
-        content.secondaryText = "\(friends[indexPath.row].burthDayDescription())"
-        
-        cell.contentConfiguration = content
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FriendTableViewCell
+        cell.viewModel = viewModel.cellViewModel(at: indexPath)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            self.friends.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            StorageManager.shared.deleteContact(at: indexPath.row)
+            
+            self.viewModel.removeFriend(at: indexPath.row)
+            self.viewModel.fetchFriends {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
         }
         deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -52,33 +55,27 @@ class BirthdaysTableViewController: UITableViewController {
         return configuration
     }
     
+    // IBAction для добавления ДР друга
+    
     @IBAction func addPerson() {
         showAlert()
     }
-    
-    private func sortFriendsByBirthday() {
-        for birthday in friends {
-            let birthdate = calendar.date(from: birthday.birthdate)!
-            let components = calendar.dateComponents([.day, .month], from: birthdate)
-            let nextDate = calendar.nextDate(after: now, matching: components, matchingPolicy: .nextTimePreservingSmallerComponents)
-            birthday.daysBeforeBirthday = calendar.dateComponents([.day], from: now, to: nextDate ?? now).day ?? 0
-        }
-        friends = friends.sorted(by: { $0.daysBeforeBirthday < $1.daysBeforeBirthday })
-    }
-    
 }
+
+// MARK: - Настройка алерта
 
 extension BirthdaysTableViewController {
     
     private func showAlert() {
-        let title = "Добавить ДР друга"
         let myDatePicker = UIDatePicker()
         myDatePicker.timeZone = .current
         myDatePicker.preferredDatePickerStyle = .wheels
         myDatePicker.datePickerMode = .date
         myDatePicker.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         
-        let alert = UIAlertController(title: title, message: "Кого добавляем?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Добавить ДР друга",
+                                      message: "Кого добавляем?",
+                                      preferredStyle: .alert)
         
         alert.addTextField { (textField) -> Void in
             textField.text = "Имя"
@@ -133,17 +130,19 @@ extension BirthdaysTableViewController {
             if name != "" && surname != "" {
                 saveAction.isEnabled = true
                 let birthDate = myDatePicker.calendar.dateComponents([.day, .month, .year], from: myDatePicker.date)
-                self.friends.append(Friend(name: name, surname: surname, birthdate: birthDate))
-                StorageManager.shared.saveFriends(with: self.friends.last ?? Friend(name: "Имя",
-                                                                                    surname: "Некорректно",
-                                                                                    birthdate: DateComponents(year: 0, month: 0, day: 0)))
+                
+                self.viewModel.addFriend(name: name,
+                                         surname:surname,
+                                         birthDay: birthDate)
+                self.viewModel.fetchFriends {
+                    self.viewModel.sortByBirthDay()
+                    UIView.transition(with: self.tableView,
+                                      duration: 1,
+                                      options: .transitionCrossDissolve,
+                                      animations: { self.tableView.reloadData() })
+                }
             }
-            UIView.transition(with: self.tableView,
-                              duration: 1,
-                              options: .transitionCrossDissolve,
-                              animations: { self.tableView.reloadData() })
         }
-        
         let cancelAction = UIAlertAction(title: "Отмена", style: .destructive)
         
         alert.addAction(saveAction)
@@ -151,5 +150,5 @@ extension BirthdaysTableViewController {
         
         present(alert, animated: true)
     }
-    
 }
+

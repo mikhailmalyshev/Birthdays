@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - Model Friend
+
 class Friend: Codable {
     let name: String
     let surname: String
@@ -19,7 +21,9 @@ class Friend: Codable {
         self.birthdate = birthdate
     }
     
-    func burthDayDescription() -> String {
+    // Возвращается String с датой рождения и возрастом
+    
+    func birthDayDescription() -> String {
         if let date = Calendar.current.date(from: birthdate) {
             let formatter = DateFormatter()
             formatter.dateStyle = .long

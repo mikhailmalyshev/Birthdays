@@ -7,12 +7,14 @@
 
 import Foundation
 
+//MARK: - StorageManager
+
 class StorageManager {
     
     static let shared = StorageManager()
     
     private let userDefaults = UserDefaults.standard
-    private let friendKey = "freinds"
+    private let friendKey = "friends"
     
     func saveFriends(with friend: Friend) {
         var friends = fetchFriends()
